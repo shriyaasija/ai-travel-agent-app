@@ -1,0 +1,242 @@
+.env
+.env.local
+.env.production
+.env.staging
+secrets/
+api_keys.txt
+*api_key*
+*secret*
+config/secrets.yaml
+.yaml
+
+# ==========================================
+# Python
+# ==========================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+ai-travel-env/
+
+# ==========================================
+# Google Cloud
+# ==========================================
+# Service account keys
+*.json
+service-account-*.json
+gcp-key.json
+google-credentials.json
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+
+# Google Cloud SDK
+.gcloud/
+
+# ==========================================
+# IDE and Editor files
+# ==========================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ==========================================
+# Operating System
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ==========================================
+# Logs and Databases
+# ==========================================
+*.log
+*.logs
+logs/
+log/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================================
+# Node.js (if you add frontend build tools)
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# ==========================================
+# Docker
+# ==========================================
+# Don't commit built images or containers
+*.dockerignore
+
+# ==========================================
+# Temporary and Cache files
+# ==========================================
+# General temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+
+# Cache directories
+.cache/
+cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# ==========================================
+# Project-specific
+# ==========================================
+# AI model downloads or cache
+models/
+model_cache/
+
+# User uploads (if you add file upload features)
+uploads/
+user_files/
+
+# Generated reports or outputs
+reports/
+output/
+
+# Local development database
+local.db
+
+# Test files and data
+test_data/
+sample_data/
+
+# Documentation builds
+docs/_build/
+site/
+
+# ==========================================
+# Backup files
+# ==========================================
+*.bak
+*.backup
+*.old
+*~
+

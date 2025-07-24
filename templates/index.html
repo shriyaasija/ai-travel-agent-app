@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Travel Agents - Multi-Agent Travel Planning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>travel planner</h1>
+            <p class="subtitle">multi-agent ai system for travel planning</p>
+            <div class="agent-status">
+                <div class="agent-indicator">
+                    <span class="status-dot active"></span>
+                    <span>Travel Coordinator</span>
+                </div>
+                <div class="agent-indicator">
+                    <span class="status-dot active"></span>
+                    <span>Destination Expert</span>
+                </div>
+                <div class="agent-indicator">
+                    <span class="status-dot active"></span>
+                    <span>Budget Optimiser</span>
+                </div>
+            </div>
+        </header>
+        <div class="usage-warning" style="background: rgba(255, 107, 107, 0.2); padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; color: white;">
+            ⚠️ <strong>Demo Version:</strong> Limited to 1 request per user per hour
+        </div>
+        <div class="main-content">
+            <div class="input-section">
+                <h2>tell me about your trip! let's plan</h2>
+                <textarea
+                    id="travelRequest"
+                    placeholder="Example: I want to visit Japan for 10 days with a budget of $3000. I'm interested in culture, food, and temples. I'm traveling in March."
+                    rows="4"
+                ></textarea>
+                <button id="planTripBtn" onclick="planTrip()">
+                    <span id="btnText">Plan My Trip</span>
+                    <span id="btnLoader" class="loader" style="display: none;"></span>
+                </button>
+            </div>
+
+            <div id="agentActivity" class="agent-activity" style="display: none;">
+                <h3>Agent Activity Monitor</h3>
+                <div id="activityLog" class="activity-log"></div>
+            </div>
+
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <h2>your personalised travel plan! have fun!</h2>
+                <div id="travelPlan" class="travel-plan"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Powered by Google Gemini</p>
+        </footer>
+    </div>
+
+    <script>
+        async function planTrip() {
+            const requestText = document.getElementById('travelRequest').value.trim();
+
+            if(!requestText) {
+                alert('Please describe your trip to send a request');
+                return;
+            }
+
+            showLoading(true);
+            showAgentActivity(true);
+            logAgentActivity('Travel Coordinator received your request...')
+
+            try {
+                const response = await fetch('/api/plan-trip', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ request: requestText })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    logAgentActivity('Agents collaborated successfully');
+                    showTravelPlan(data.travel_plan);
+                } else {
+                    throw new Error(data.error || 'Unknown error occured');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                logAgentActivity('Error:' + error.message);
+                alert('Something went wrong, please try again');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function showLoading(isLoading) {
+            const btn = document.getElementById('planTripBtn');
+            const btnText = document.getElementById('btnText');
+            const btnLoader = document.getElementById('btnLoader')
+
+            if (isLoading) {
+                btn.disabled = true;
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'inline-block';
+            } else {
+                btn.disabled = false;
+                btnText.style.display = 'inline';
+                btnLoader.style.display = 'none';
+            }
+        }
+
+         function showAgentActivity(show) {
+            const activityDiv = document.getElementById('agentActivity');
+            if (show) {
+                activityDiv.style.display = 'block';
+                document.getElementById('activityLog').innerHTML = '';
+            } else {
+                activityDiv.style.display = 'none';
+            }
+        }
+
+        function logAgentActivity(message) {
+            const log = document.getElementById('activityLog');
+            const timestamp = new Date().toLocaleTimeString();
+            log.innerHTML += `<div class="activity-item">[${timestamp}] ${message}</div>`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+         function showTravelPlan(plan) {
+            const resultsDiv = document.getElementById('resultsSection');
+            const planDiv = document.getElementById('travelPlan');
+            
+            planDiv.innerHTML = formatTravelPlan(plan);
+            resultsDiv.style.display = 'block';
+            
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function formatTravelPlan(plan) {
+            return plan
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/^\* (.*$)/gim, '<li>$1</li>')
+                .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+        }
+        
+        document.getElementById('travelRequest').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                planTrip();
+            }
+        });
+        
+        function simulateAgentActivity() {
+            const activities = [
+                'Travel Coordinator analyzing request...',
+                'Destination Expert researching locations...',
+                'Budget Optimizer calculating costs...',
+                'Agents sharing information...',
+                'Compiling final recommendations...'
+            ];
+            
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < activities.length) {
+                    logAgentActivity(activities[index]);
+                    index++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+Flask==2.3.3
+google-generativeai==0.3.2
+google-cloud-run==0.9.0
+google-cloud-firestore==2.13.1
+gunicorn==21.2.0
+Werkzeug==2.3.7
